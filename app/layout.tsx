@@ -16,7 +16,7 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: 'Hadi&Co. - Professional Strata Management',
+  title: 'Hadi&Co',
   description: 'Professional strata management services for your property',
   icons: {
     icon: '/Hadi&Co.png',

@@ -8,10 +8,10 @@ const Navbar: React.FC = () => {
         Hadi<span className="brand-orange">&Co.</span>
       </Link>
       <div className="navLinks">
-        <Link href="/About">About Us</Link>
-        <Link href="/Notice">Notice Board</Link>
-        <Link href="/Rules">Rules</Link>
-        <Link href="/login" className="login-btn">Owner's Login</Link>
+        <Link href="/">Home</Link>
+        <Link href="/notice-board">Notice Board</Link>
+        <Link href="/contact">Contact Us</Link>
+        <Link href="/login" className="login-button">Owner's Login</Link>
       </div>
     </nav>
   );
