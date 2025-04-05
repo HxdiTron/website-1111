@@ -1,22 +1,12 @@
 import { NextResponse } from 'next/server';
+import { storage } from '@/app/utils/storage';
 
 export const runtime = 'edge';
-
-interface UserData {
-  id: string;
-  email: string;
-  password: string;
-  name: string;
-  unitNumber: string;
-}
 
 interface LoginRequest {
   email: string;
   password: string;
 }
-
-// In-memory storage for demonstration
-const users: UserData[] = [];
 
 // Track login attempts for rate limiting
 const loginAttempts = new Map<string, { count: number; timestamp: number }>();
@@ -29,7 +19,7 @@ export async function POST(request: Request) {
     if (!body.email || !body.password) {
       return NextResponse.json(
         { success: false, error: 'Missing email or password' },
-        { status: 400 } // Bad Request
+        { status: 400 }
       );
     }
 
@@ -37,18 +27,17 @@ export async function POST(request: Request) {
     const attempts = loginAttempts.get(body.email);
     if (attempts && attempts.count >= 5) {
       const timeSinceLastAttempt = Date.now() - attempts.timestamp;
-      if (timeSinceLastAttempt < 15 * 60 * 1000) { // 15 minutes
+      if (timeSinceLastAttempt < 15 * 60 * 1000) {
         return NextResponse.json(
           { success: false, error: 'Too many login attempts. Please try again later.' },
-          { status: 429 } // Too Many Requests
+          { status: 429 }
         );
       }
-      // Reset attempts if 15 minutes have passed
       loginAttempts.delete(body.email);
     }
 
     // Find user
-    const user = users.find(u => u.email === body.email);
+    const user = await storage.findUserByEmail(body.email);
     
     if (!user || user.password !== body.password) {
       // Update login attempts
@@ -60,7 +49,7 @@ export async function POST(request: Request) {
 
       return NextResponse.json(
         { success: false, error: 'Invalid email or password' },
-        { status: 401 } // Unauthorized
+        { status: 401 }
       );
     }
 
@@ -78,9 +67,10 @@ export async function POST(request: Request) {
       }
     });
   } catch (error) {
+    console.error('Login error:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to login' },
-      { status: 500 } // Internal Server Error
+      { status: 500 }
     );
   }
 } 

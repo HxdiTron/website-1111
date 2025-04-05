@@ -13,17 +13,32 @@ interface WelcomeData {
 const WelcomeMessage: React.FC = () => {
   const [data, setData] = useState<WelcomeData | null>(null);
   const [isVisible, setIsVisible] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Check if user is staying signed in
+    const staySignedIn = localStorage.getItem('staySignedIn') === 'true';
+    if (staySignedIn) {
+      setIsVisible(false);
+      return;
+    }
+
     const fetchData = async () => {
       try {
+        console.log('Fetching welcome data...');
         const [timeRes, locationRes] = await Promise.all([
           fetch('/api/time'),
           fetch('/api/location')
         ]);
         
+        if (!timeRes.ok || !locationRes.ok) {
+          throw new Error('Failed to fetch data');
+        }
+
         const timeData = await timeRes.json();
         const locationData = await locationRes.json();
+        
+        console.log('Received data:', { timeData, locationData });
         
         setData({
           time: timeData.time,
@@ -31,6 +46,7 @@ const WelcomeMessage: React.FC = () => {
         });
       } catch (error) {
         console.error('Error fetching welcome data:', error);
+        setError('Failed to load welcome data');
       }
     };
 

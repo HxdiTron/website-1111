@@ -11,7 +11,10 @@ const Navbar: React.FC = () => {
         <Link href="/">Home</Link>
         <Link href="/notice-board">Notice Board</Link>
         <Link href="/contact">Contact Us</Link>
-        <Link href="/login" className="login-button">Owner's Login</Link>
+        <Link href="/login" className="login-btn">
+          <i className="fas fa-user"></i>
+          Owner's Login
+        </Link>
       </div>
     </nav>
   );

@@ -1,14 +1,7 @@
 import { NextResponse } from 'next/server';
+import { storage } from '@/app/utils/storage';
 
 export const runtime = 'edge';
-
-interface UserData {
-  id: string;
-  email: string;
-  password: string;
-  name: string;
-  unitNumber: string;
-}
 
 interface RegisterRequest {
   email: string;
@@ -17,9 +10,6 @@ interface RegisterRequest {
   unitNumber: string;
 }
 
-// In-memory storage for demonstration
-const users: UserData[] = [];
-
 export async function POST(request: Request) {
   try {
     const body: RegisterRequest = await request.json();
@@ -27,40 +17,31 @@ export async function POST(request: Request) {
     // Validate input
     if (!body.email || !body.password || !body.name || !body.unitNumber) {
       return NextResponse.json(
-        { success: false, error: 'All fields are required' },
+        { success: false, error: 'Missing required fields' },
         { status: 400 }
       );
     }
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(body.email)) {
-      return NextResponse.json(
-        { success: false, error: 'Invalid email format' },
-        { status: 400 }
-      );
-    }
-
-    // Check if user already exists
-    const existingUser = users.find(u => u.email === body.email);
+    // Check if email already exists
+    const existingUser = await storage.findUserByEmail(body.email);
     if (existingUser) {
       return NextResponse.json(
         { success: false, error: 'Email already registered' },
-        { status: 409 }
+        { status: 400 }
       );
     }
 
     // Create new user
-    const newUser: UserData = {
-      id: Date.now().toString(), // Simple ID generation
+    const newUser = {
+      id: Date.now().toString(),
       email: body.email,
-      password: body.password, // In production, this should be hashed
+      password: body.password,
       name: body.name,
       unitNumber: body.unitNumber
     };
 
     // Add user to storage
-    users.push(newUser);
+    await storage.addUser(newUser);
 
     // Return success with user data (excluding password)
     return NextResponse.json({
@@ -73,6 +54,7 @@ export async function POST(request: Request) {
       }
     });
   } catch (error) {
+    console.error('Registration error:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to register' },
       { status: 500 }

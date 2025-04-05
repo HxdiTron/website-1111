@@ -13,11 +13,24 @@ export default function ContactPage() {
     subject: '',
     message: ''
   });
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
+    // Show success message
+    setSuccess(true);
+    // Reset form
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      subject: '',
+      message: ''
+    });
+    // Hide success message after 3 seconds
+    setTimeout(() => {
+      setSuccess(false);
+    }, 3000);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -73,6 +86,11 @@ export default function ContactPage() {
 
           {/* Contact Form */}
           <div className="contact-form-container">
+            {success && (
+              <div className="success-message">
+                Message sent successfully! We'll get back to you soon.
+              </div>
+            )}
             <form onSubmit={handleSubmit} className="contact-form">
               <div className="form-group">
                 <label htmlFor="name">Full Name</label>

@@ -14,8 +14,10 @@ export default function HomePage() {
   
   const handleNoticeClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    const token = localStorage.getItem('token');
-    if (!token) {
+    const userData = localStorage.getItem('userData');
+    const staySignedIn = localStorage.getItem('staySignedIn') === 'true';
+    
+    if (!userData || !staySignedIn) {
       setShowNotification(true);
       setTimeout(() => {
         router.push('/login');
@@ -42,7 +44,10 @@ export default function HomePage() {
         <div className="navLinks">
           <a href="/notice-board" onClick={handleNoticeClick}>Notice Board</a>
           <Link href="/contact">Contact Us</Link>
-          <Link href="/login" className="login-btn">Owner's Login</Link>
+          <Link href="/login" className="login-btn">
+            <i className="fas fa-user"></i>
+            Owner's Login
+          </Link>
         </div>
       </nav>
 

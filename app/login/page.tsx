@@ -17,13 +17,33 @@ const Login: React.FC = () => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [showDevMessage, setShowDevMessage] = useState(true);
+  const [showWelcome, setShowWelcome] = useState(true);
+
+  // Make welcome message disappear after 3 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowWelcome(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Make dev message disappear after 30 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowDevMessage(false);
+    }, 30000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   // Check if user is already logged in with stay signed in
   useEffect(() => {
     const userData = localStorage.getItem('userData');
     const staySignedIn = localStorage.getItem('staySignedIn');
     if (userData && staySignedIn === 'true') {
-      router.push('/notice-board');
+      router.replace('/notice-board');
     }
   }, [router]);
 
@@ -60,15 +80,17 @@ const Login: React.FC = () => {
         }
 
         setSuccess(true);
-        // Redirect after a short delay
+        // Use window.location for navigation
         setTimeout(() => {
-          router.push('/notice-board');
-        }, 1500);
+          window.location.href = '/notice-board';
+        }, 1000);
       } else {
         setError(data.error || 'Login failed');
+        setShowDevMessage(true); // Show dev message again on login failure
       }
     } catch (err) {
       setError('An error occurred during login');
+      setShowDevMessage(true); // Show dev message again on error
     } finally {
       setIsLoading(false);
     }
@@ -101,12 +123,27 @@ const Login: React.FC = () => {
         <div className="login-image-overlay"></div>
       </div>
       <div className="login-form">
-        <div className="login-header">
-          <h1>Welcome Back Resident!</h1>
-          <p>Please enter your login details</p>
-        </div>
+          <div className="login-header">
+            <h1>Welcome Back Resident!</h1>
+            <p>Please enter your login details</p>
+          </div>
         {error && <div className="error-message">{error}</div>}
-        {success && <div className="success-message">Login successful! Redirecting to notice board...</div>}
+        {success && <div className="success-message">Login successful! Redirecting to Notice Board...</div>}
+        {showDevMessage && (
+          <div className="dev-message">
+            <p>
+              Login Details
+              <button 
+                className="close-button" 
+                onClick={() => setShowDevMessage(false)}
+              >
+                ×
+              </button>
+            </p>
+            <p>Email: info1111@usyd.com</p>
+            <p>Password: welove1111</p>
+          </div>
+        )}
         <form onSubmit={handleSubmit}>
           <label>Email ID</label>
           <input
@@ -150,12 +187,6 @@ const Login: React.FC = () => {
             {isLoading ? 'Logging in...' : success ? 'Redirecting...' : 'Log In'}
           </button>
         </form>
-        <p className="register-link">
-          Do not have your login details?{' '}
-          <Link href="/register" className="register-link-text">
-            Register here
-          </Link>
-        </p>
       </div>
     </div>
   );
