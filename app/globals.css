@@ -124,7 +124,8 @@ body {
   color: #FF8F37;
 }
 
-.navbar .login-btn {
+.navbar .login-btn,
+.navbar .logout-btn {
   background-color: #FF8F37;
   color: white;
   padding: 0.5rem 1rem;
@@ -135,13 +136,16 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  cursor: pointer;
 }
 
-.navbar .login-btn i {
+.navbar .login-btn i,
+.navbar .logout-btn i {
   font-size: 1rem;
 }
 
-.navbar .login-btn:hover {
+.navbar .login-btn:hover,
+.navbar .logout-btn:hover {
   background-color: #e67e2a;
   transform: translateY(-1px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

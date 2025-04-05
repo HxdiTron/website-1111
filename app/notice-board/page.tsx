@@ -121,7 +121,7 @@ export default function NoticeBoard() {
       <nav className="navbar">
         <div className="nav-left">
           <Link href="/" className="brand">
-            Hadi<span className="brand-orange">Co.</span>
+            Hadi<span className="brand-orange">&</span><span className="brand-orange">Co.</span>
           </Link>
         </div>
         <div className="navLinks">
@@ -129,7 +129,8 @@ export default function NoticeBoard() {
           <Link href="/notice-board">Notice Board</Link>
           <Link href="/contact">Contact</Link>
         </div>
-        <button onClick={handleLogout} className="logout-button">
+        <button onClick={handleLogout} className="logout-btn">
+          <i className="fas fa-sign-out-alt"></i>
           Logout
         </button>
       </nav>
