@@ -6,6 +6,7 @@ import Logo from "../components/Logo";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const Login: React.FC = () => {
   const router = useRouter();
