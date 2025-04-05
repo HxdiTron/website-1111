@@ -2,6 +2,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Poppins, Playfair_Display } from 'next/font/google'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -42,6 +43,7 @@ export default function RootLayout({
           you could place them here, e.g. <Navbar /> / <Footer />
         */}
         {children}
+        <SpeedInsights />
       </body>
     </html>
   )
