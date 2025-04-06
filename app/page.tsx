@@ -19,9 +19,6 @@ export default function HomePage() {
     
     if (!userData || !staySignedIn) {
       setShowNotification(true);
-      setTimeout(() => {
-        router.push('/login');
-      }, 2000); // Redirect to login after 2 seconds
     } else {
       router.push('/notice-board');
     }

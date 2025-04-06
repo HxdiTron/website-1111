@@ -403,11 +403,7 @@ body {
 }
 
 .footerContent {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
+  display: none;
 }
 
 .footer h3 {
@@ -433,19 +429,7 @@ body {
 }
 
 .socialLinks {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.socialLinks a {
-  color: white;
-  font-size: 1.5rem;
-  transition: color 0.3s ease;
-}
-
-.socialLinks a:hover {
-  color: #90cdf4;
+  display: none;
 }
 
 /* Responsive Design */
@@ -1079,95 +1063,7 @@ body {
 }
 
 .notice-form {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-top: 2rem;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.notice-form h2 {
-  color: #1a365d;
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-
-.notice-form .form-group {
-  margin-bottom: 1.5rem;
-}
-
-.notice-form label {
-  display: block;
-  margin-bottom: 0.5rem;
-  color: #2d3748;
-  font-weight: 500;
-}
-
-.notice-form input,
-.notice-form textarea,
-.notice-form select {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #e2e8f0;
-  border-radius: 5px;
-  font-size: 1rem;
-}
-
-.notice-form textarea {
-  min-height: 100px;
-  resize: vertical;
-}
-
-.notice-meta {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 0.5rem;
-  font-size: 0.875rem;
-}
-
-.priority-badge {
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  font-weight: 500;
-  font-size: 0.75rem;
-}
-
-.priority-badge.high {
-  background-color: #fee2e2;
-  color: #dc2626;
-}
-
-.priority-badge.medium {
-  background-color: #fef3c7;
-  color: #d97706;
-}
-
-.priority-badge.low {
-  background-color: #dcfce7;
-  color: #166534;
-}
-
-.response-time {
-  color: #4a5568;
-  font-size: 0.875rem;
-}
-
-@media (max-width: 768px) {
-  .notice-sections {
-    grid-template-columns: 1fr;
-  }
-  
-  .notice-board h1 {
-    font-size: 2rem;
-  }
-
-  .notice-section {
-    min-width: 100%;
-  }
+  display: none;
 }
 
 /* Image Slider Container */
