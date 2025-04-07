@@ -78,6 +78,9 @@ export default function HomePage() {
           Monday – Friday<br />
           9am – 5pm
         </div>
+        <div className="copyright">
+          © {new Date().getFullYear()} Hadi&Co. All rights reserved.
+        </div>
       </footer>
     </div>
   );

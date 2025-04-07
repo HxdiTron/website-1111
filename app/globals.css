@@ -325,20 +325,20 @@ body {
 .footer {
   background-color: #1a1a1a;
   color: white;
-  padding: 1rem;
+  padding: 0.5rem;
   margin-top: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.25rem;
 }
 
 .footer-content {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
   width: 100%;
 }
 
@@ -394,12 +394,12 @@ body {
 
 .copyright {
   text-align: center;
-  padding-top: 0.5rem;
+  padding-top: 0.25rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 0.8rem;
   color: #a0aec0;
   width: 100%;
-  margin-top: 0.5rem;
+  margin-top: 0.25rem;
 }
 
 .footerContent {
