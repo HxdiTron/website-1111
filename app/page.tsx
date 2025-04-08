@@ -16,12 +16,23 @@ export default function HomePage() {
     e.preventDefault();
     const userData = localStorage.getItem('userData');
     const staySignedIn = localStorage.getItem('staySignedIn') === 'true';
+    const sessionExpiry = localStorage.getItem('sessionExpiry');
     
-    if (!userData || !staySignedIn) {
-      setShowNotification(true);
-    } else {
-      router.push('/notice-board');
+    // Check if user is logged in and session is valid
+    if (userData && staySignedIn && sessionExpiry) {
+      const expiryDate = new Date(sessionExpiry);
+      if (expiryDate > new Date()) {
+        router.push('/notice-board');
+        return;
+      }
+      // If session expired, clear the data
+      localStorage.removeItem('userData');
+      localStorage.removeItem('staySignedIn');
+      localStorage.removeItem('sessionExpiry');
     }
+    
+    // If we get here, either user is not logged in or session expired
+    setShowNotification(true);
   };
 
   const ManagementName = process.env.NEXT_PUBLIC_Management_Name || 'Hadi&Co.';
