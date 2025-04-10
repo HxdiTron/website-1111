@@ -112,12 +112,11 @@ const Login: React.FC = () => {
         <Image
           src="/image.png"
           alt="Background"
-          width={1272}
-          height={1115}
+          fill
           className="login-image"
           priority
           quality={100}
-          sizes="100vw"
+          sizes="(max-width: 1024px) 100vw, 40vw"
           style={{ objectFit: 'cover' }}
         />
         <div className="login-image-overlay"></div>
