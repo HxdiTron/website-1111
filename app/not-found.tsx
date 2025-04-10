@@ -11,7 +11,7 @@ export default function NotFound() {
       <div className="error-container">
         <div className="error-content">
           <h1>404</h1>
-          <h2>Page Not Found</h2>
+          <h2>Page Not Found L</h2>
           <p>Oops! The page you're looking for doesn't exist.</p>
           <Link href="/" className="back-home">
             Back to Home
